@@ -1,0 +1,3 @@
+Enquanto nas listas sequenciais os dados ficam um colado no outro na memória (o que exige saber o tamanho máximo antes), na alocação encadeada os dados ficam "espalhados" pela memória do computador.Para não perder esses dados de vista, criamos o conceito de Nó (Node). Cada nó possui duas partes fundamentais:
+- Info / Chave: O valor que você quer guardar (ex: um número, o nome de um cliente).
+- Prox (Ponteiro): O endereço que aponta para onde está o próximo nó na memória. Se for o último nó, ele aponta para o vazio (no material é representado pela letra grega $\lambda$, que no Python será o None).
