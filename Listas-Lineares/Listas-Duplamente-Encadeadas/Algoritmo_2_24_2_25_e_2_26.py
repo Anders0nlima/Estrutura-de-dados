@@ -12,7 +12,6 @@ class ListaDuplaCircular:
         self.ptlista = No() # sentinela (nó cabeça)
         # na lista vazia, o sentinela aponta para si mesmo nos dois sentidos
         self.ptlista.prox = self.ptlista
-        self.ptlista.prox = self.ptlista
         self.ptlista.ant = self.ptlista
     
     # algoritmo 2.24: busca
