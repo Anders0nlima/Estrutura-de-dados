@@ -1,20 +1,41 @@
-# O Conceito
-Imagine que você tem uma lista de números desordenados. A ordenação por distribuição funciona assim:
-# Análise por Dígito: 
-O algoritmo olha para o dígito menos significativo (a unidade), depois para a dezena, centena, e assim por diante.
-# Distribuição em Filas ($F_k$): 
-Para cada dígito (na base 10, de 0 a 9), existe uma fila correspondente ($F_0, F_1, ..., F_9$). O número é inserido na fila que corresponde ao seu dígito atual.
-# Por que filas? 
-Porque as filas garantem a estabilidade. O primeiro número a entrar em uma fila com o dígito "5" deve ser o primeiro a sair, mantendo a ordem relativa que ele já conquistou nos passos anteriores.
-# Coleta e Repetição: 
-Após distribuir todos os números, você os coleta das filas (da $F_0$ até a $F_9$) e reconstrói a lista. Esse processo se repete para o próximo dígito à esquerda até que o número com mais dígitos tenha sido processado.
+# Lista Duplamente Encadeada
+As listas simples têm um problema crônico: você só consegue andar para frente. Se você estiver no nó 50 e quiser voltar para o nó 49, você não pode; precisa começar a busca toda de novo a partir do início da lista.
 
+### Na Figura 2.10 e 2.11
+- O nó sombreado é o sentinela (ptlista). Ele não guarda dados úteis.
+- O primeiro nó real (com chave $K_1$) tem seu ant apontando para o sentinela.
+- O último nó real (com chave $K_n$) tem seu prox apontando para o sentinela.
+- O ant do sentinela aponta para o último nó, e o prox do sentinela aponta para o primeiro.
 
-### Explicação do Algoritmo 2.22
-- Para $i = 1, ..., d$: Este loop controla as "passadas". Se o maior número tiver 3 dígitos, o loop roda 3 vezes.
+- Isso cria um anel perfeito que pode ser percorrido em qualquer direção!
 
-- $k := i$-ésimo dígito menos significativo: Extrai o dígito atual para decidir em qual fila o número entra.
+### Busca (Algoritmo 2.24)
+- Como a lista é ordenada e usa um sentinela, a busca é quase idêntica à da lista circular de antes.
 
-- $F_k \Leftarrow L[j]$: O número da lista original é inserido na fila $F_k$ (operação de inserção na fila, similar ao Algoritmo 2.20).
+- O truque de colocar ptlista^.chave := x continua aqui.
 
-- Enquanto $F_k \neq \emptyset$ faça $L[j] \Leftarrow F_k$: Os números são removidos das filas e colocados de volta na lista $L$ (operação de remoção da fila, similar ao Algoritmo 2.21).
+- A diferença é que a função não precisa mais retornar o ponteiro ant (anterior) e o pont (atual). Ela só retorna o pont.
+
+- Por que? Porque se você tem o pont, você automaticamente tem o anterior acessando pont^.ant! Isso simplifica muito.
+
+### Inserção (Figura 2.12 e Algoritmo 2.25)
+o que percebemos foi uma "dança dos ponteiros" que é necessária para inserir um novo nó ($pt$) sem quebrar a lista.
+Como cada nó tem dois braços, precisamos fazer quatro conexões ao invés de duas. O algoritmo sempre insere o novo nó antes do ponteiro pont encontrado na busca.
+
+#### Os 4 passos do algoritmo são:
+- pt^.prox := pont: O braço direito do novo nó segura o nó atual.
+
+- pt^.ant := pont^.ant: O braço esquerdo do novo nó segura o que antes era o anterior do nó atual.
+
+- pont^.ant^.prox := pt: O vizinho da esquerda solta o nó atual e passa a apontar seu braço direito para o novo nó.
+
+- pont^.ant := pt: O nó atual passa a apontar seu braço esquerdo para o novo nó.
+
+### Remoção (Figura 2.13 e Algoritmo 2.26)
+como "isolar" o nó que queremos remover (pont). É a operação mais elegante de todas, pois precisamos de apenas duas linhas de código para costurar a lista por cima do nó removido:
+
+- pont^.ant^.prox := pont^.prox: O vizinho da esquerda do nó removido passa a apontar direto para o vizinho da direita.
+
+- pont^.prox^.ant := pont^.ant: O vizinho da direita do nó removido passa a apontar direto para o vizinho da esquerda.
+
+O nó pont fica completamente isolado e é limpo da memória.

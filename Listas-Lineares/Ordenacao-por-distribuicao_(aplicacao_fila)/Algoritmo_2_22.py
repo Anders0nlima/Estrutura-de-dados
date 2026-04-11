@@ -1,4 +1,4 @@
-# Reutilizando a estrutura de Nó e Fila que ja fizemos
+# Reutilizando a estrutura de Nó e FilaEncadeada que ja fizemos
 class No:
     def __init__(self, valor):
         self.valor = valor
@@ -48,7 +48,7 @@ def ordenacao_distribuicao(lista, num_digitos):
                 
     return lista
 
-# --- Teste Prático ---
+# teste
 numeros = [170, 45, 75, 90, 802, 24, 2, 66]
 # O maior número é 802, então num_digitos = 3
 resultado = ordenacao_distribuicao(numeros, 3)
