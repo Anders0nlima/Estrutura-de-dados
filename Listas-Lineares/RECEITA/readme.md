@@ -27,3 +27,21 @@ A Receita: Usa a receita completa (Passos 1 a 5). A circularidade e o duplo enca
 Na Alocação Sequencial (a primeira parte do sumário), é só trocar os ponteiros (prox, ant) por Índices de um Vetor ([0], [1], [i+1]).
 
 Em vez de "costurar", a inserção no meio da lista te obriga a fazer um "for" empurrando todo mundo uma casa para a direita para abrir espaço. A remoção te obriga a fazer um "for" puxando todo mundo uma casa para a esquerda para tapar o buraco. (Foi por isso que usamos o Vetor Circular no Deque, para fugir desse "empurra-empurra"!).
+
+### Como transformamos essa Lista Simples em uma Pilha (Stack - LIFO)?
+A regra da Pilha é: Só insere no topo, só remove do topo.
+
+apaga a função busca() inteira.
+
+Inserção Adaptada: Ao invés de usar ant, pont = self.busca(), tem que "travar" os ponteiros no início. O ant sempre será o Sentinela (ptlista) e o pont sempre será o primeiro elemento (ptlista.prox).
+
+Remoção Adaptada: Mesma coisa, não busca. O ant é o sentinela e o pont é o primeiro elemento. É só dar o comando de "pular" o primeiro nó: self.ptlista.prox = self.ptlista.prox.prox.
+
+### E para uma Fila (Queue - FIFO)?
+A regra é: Insere no fim, remove no começo.
+
+Apaga a busca de novo.
+
+Inserção Adaptada: cria um ponteiro extra chamado fim que fica parado no último nó. Para inserir, você liga o novo nó no fim e atualiza quem é o novo fim.
+
+Remoção Adaptada: Exatamente igual à da Pilha (tira do começo).
