@@ -25,6 +25,7 @@ A Receita: Usa a receita completa (Passos 1 a 5). A circularidade e o duplo enca
 
 ## E a Alocação Sequencial?
 Na Alocação Sequencial (a primeira parte do sumário), é só trocar os ponteiros (prox, ant) por Índices de um Vetor ([0], [1], [i+1]).
+- Nota: Aqui não temos a classe "No" individual, os "ingredientes" são o próprio vetor e o seu tamanho máximo.
 
 Em vez de "costurar", a inserção no meio da lista te obriga a fazer um "for" empurrando todo mundo uma casa para a direita para abrir espaço. A remoção te obriga a fazer um "for" puxando todo mundo uma casa para a esquerda para tapar o buraco. (Foi por isso que usamos o Vetor Circular no Deque, para fugir desse "empurra-empurra"!).
 
