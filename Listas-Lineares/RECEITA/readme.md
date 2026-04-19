@@ -46,3 +46,242 @@ Apaga a busca de novo.
 Inserção Adaptada: cria um ponteiro extra chamado fim que fica parado no último nó. Para inserir, você liga o novo nó no fim e atualiza quem é o novo fim.
 
 Remoção Adaptada: Exatamente igual à da Pilha (tira do começo).
+
+## SOBRE PONTOS (.)
+por que tantos pontos? em 2.8 e outros
+```
+class No:
+    def __init__(self, chave):
+        self.chave = chave 
+        self.prox = None
+    
+class CircularEncadeada:
+    def __init__(self):
+        self.ptlista = No(None)
+        self.ptlista.prox = self.ptlista
+
+    def busca(self, valor):
+        self.ptlista.chave = valor  
+        ant = self.ptlista
+        pont = self.ptlista.prox
+
+        while pont.chave < valor:
+            ant = pont
+            pont = pont.prox
+        
+        return ant, pont
+    
+    def inserir(self, valor):
+        self.ptlista.chave = valor
+        ant, pont = self.busca(valor)
+
+        novo_no = No(valor)
+
+        novo_no.prox = pont
+        ant.prox = novo_no
+    
+    def remover(self, valor):
+        ant, pont = self.busca(valor)
+
+        if pont != self.ptlista and pont.chave == valor:
+            ant.prox = pont.prox
+        else: 
+            print("Valor nao encontrado")
+```
+
+```
+no = No(10)
+```
+
+Esse "no" é um objeto que tem:
+```
+no.chave = 10  # pega o valor (“a chave do nó”)
+no.prox = None # pega o próximo nó (o próximo nó)
+```
+
+```
+A = No(10)
+B = No(20)
+
+A.prox = B    # significa isso
+A.prox.chave  # signiifca que pegamos o valor de B , ou seja 20
+```
+
+Sobre o codigo
+```
+class No:
+    def __init__(self, chave):
+        self.chave = chave 
+        self.prox = None
+```
+
+chave → valor
+prox → próximo nó
+
+```
+def __init__(self):
+        self.ptlista = No(None)
+        self.ptlista.prox = self.ptlista
+```
+Lista circular vazia
+
+self.ptlista → variável que guarda um nó
+No(None) → cria o nó
+self.ptlista.prox → acessa o “próximo”
+self.ptlista.prox = self.ptlista → faz o nó apontar pra ele mesmo
+
+Sobre a Busca
+ex:
+[ptlista] → 10 → 20 → 30 → (volta pro ptlista)
+
+busca(20)
+
+self.ptlista.chave = valor
+ptlista.chave = 20 -> se torna isso
+ 
+ant = self.ptlista -> ant = [ptlista]
+pont = self.ptlista.prox -> pont = 10
+
+while pont.chave < valor: -> 10 < 20 → True
+
+ant = pont      # ant = 10
+pont = pont.prox  # pont = 20
+
+pont = 20
+
+20 < 20 → False (Para o loop)
+
+return ant, pont
+
+ant = 10
+pont = 20
+
+O que retorna:
+(ANTERIOR, POSIÇÃO ONDE DEVERIA ESTAR)
+
+é se ele nao existir
+[ptlista] → 10 → 20 → 30 → (volta)
+
+busca(25)
+
+self.ptlista.chave = 25
+
+[ptlista(chave=25)]
+
+ant = ptlista
+pont = ptlista.prox
+
+ant = ptlista
+pont = 10
+
+10 < 25 → True
+
+ant = 10
+pont = 20
+
+20 < 25 → True
+
+ant = 20
+pont = 30
+
+30 < 25 → False (Para o loop)
+
+return ant, pont
+
+ant = 20
+pont = 30
+
+O valor 25 não existe, mas:
+
+20 < 25 < 30 -> Então a função te devolve exatamente onde ele deveria ser inserido
+
+isso se conecta com inserção
+
+```
+novo_no.prox = pont
+ant.prox = novo_no
+```
+
+novo_no.prox = 30
+20.prox = novo_no
+
+resultado final: 10 → 20 → 25 → 30 (A busca não serve só pra encontrar — ela serve pra posicionar)
+
+Caso de inserção:
+[ptlista] → 10 → 20 → 30 → (volta)
+
+Busca(40):
+
+Resultado: (isso foi feito graças a "ant, pont = self.busca(valor)" que pega toda a logica)
+ant = 30
+pont = ptlista (note que no ultimo ele volta e aponta para ptlista, ou seja, um ciclo)
+
+Inserção:
+novo_no = No(40)
+
+novo_no.prox = pont   # 40 → ptlista
+ant.prox = novo_no    # 30 → 40  (ant = 30 | ant.prox = 40)
+
+resultado:
+10 → 20 → 30 → 40 → (volta)
+
+Busca decide ONDE, inserção faz o COMO
+
+sobre a remoção
+```
+pont != self.ptlista # “não parei no sentinela” (se parou no ptlista → chegou no final → não encontrou)
+```
+
+```
+pont.chave == valor # verifica se o valor realmente existe
+```
+
+ou seja, “o valor existe se: não é o sentinela e a chave é igual ao valor”
+
+linha da remoção
+```
+ant.prox = pont.prox
+```
+
+10 → 20 → 30
+
+ant = 10
+pont = 20
+
+ant.prox = pont.prox  -> 10.prox = 30
+
+resultado: ele pula a 20 (O 20 foi removido da lista)
+10 → 30
+
+Remover = fazer o anterior apontar para o próximo
+
+[ptlista] → 10 → 20 → 30 → (volta)
+
+remover(20)
+
+ant = 10
+pont = 20
+
+10 → 30
+
+
+e se a valor estiver na primeira possição:
+[ptlista] → 10 → 20 → 30 → (volta pro ptlista)
+
+remover(10)
+
+ant, pont = self.busca(10)
+
+ant = ptlista
+pont = 10
+
+if pont != self.ptlista and pont.chave == valor:
+
+pont != ptlista → True
+pont.chave == 10 → True
+
+ant.prox = pont.prox -> ptlista.prox = 20 (pont -> 10 | pont.prox -> 20)
+
+resultado:
+[ptlista] → 20 → 30 → (volta)
+

@@ -7,17 +7,17 @@
 # O objetivo é andar na lista até achar o valor ou bater no sentinela.
 
 def busca(self, valor):
-        # 1. Prepara o terreno (planta o valor no sentinela)
-        self.ptlista.chave = valor 
+    # 1. Prepara o terreno (planta o valor no sentinela)
+    self.ptlista.chave = valor 
         
-        # 2. Posiciona os corredores no início
-        ant = self.ptlista
-        pont = self.ptlista.prox
+    # 2. Posiciona os corredores no início
+    ant = self.ptlista
+    pont = self.ptlista.prox
         
-        # 3. Caminha enquanto não achar
-        while pont.chave != valor: # (Ou < valor, se for lista ordenada)
-            ant = pont
-            pont = pont.prox
+    # 3. Caminha enquanto não achar
+    while pont.chave != valor: # (Ou < valor, se for lista ordenada)
+        ant = pont
+        pont = pont.prox
             
-        # 4. Retorna a dupla dinâmica!
-        return ant, pont
+    # 4. Retorna a dupla dinâmica!
+    return ant, pont
