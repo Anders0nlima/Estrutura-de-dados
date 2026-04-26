@@ -1,4 +1,4 @@
-#Melhor para entender(facil de implementar)
+# Melhor para entender(facil de implementar)
 
 class No:
     def __init__(self, chave):
