@@ -14,6 +14,4 @@ def busca_bin(L, x):
 
     return -1
 
-
 print(busca_bin([1, 2, 3, 4, 5], 4))
-
